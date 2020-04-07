@@ -15,8 +15,10 @@ function R=rand(pD,nData)
 
 if numel(pD)>1
     error('Method works only for a single DiscreteD object');
-end;
+end
 
 %*** Insert your own code here and remove the following error message 
 
-error('Not yet implemented');
+    pd = makedist('Multinomial','probabilities',pD.ProbMass);
+    R = random(pd,nData,1);
+end

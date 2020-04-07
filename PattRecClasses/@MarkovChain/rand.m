@@ -21,10 +21,27 @@ function S=rand(mc,T)
 %Code Authors:
 %---------------------------------------------
 
-S=zeros(1,T);%space for resulting row vector
 nS=mc.nStates;
+pd = DiscreteD(mc.InitialProb);
+state = rand(pd,1);
+S = state;
 
-error('Method not yet implemented');
-%continue code from here, and erase the error message........
+if finiteDuration(mc)
+    for t = 2:T
+        pd = DiscreteD(mc.TransitionProb(state,:));
+        state = rand(pd,1);
+        if state > nS
+            break;
+        end
+        S = [S state];
+    end
+else
+    for t = 2:T
+        pd = DiscreteD(mc.TransitionProb(state,:));
+        state = rand(pd,1);
+        S = [S state];
+    end    
+end
+end
 
 

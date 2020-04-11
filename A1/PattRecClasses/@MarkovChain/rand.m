@@ -18,7 +18,7 @@ function S=rand(mc,T)
 %   length(S) <= T
 %
 %---------------------------------------------
-%Code Authors:
+%Code Authors: Lingxiao Wang
 %---------------------------------------------
 
 S=zeros(1,T);%space for resulting row vector

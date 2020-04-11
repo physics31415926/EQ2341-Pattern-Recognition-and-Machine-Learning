@@ -27,17 +27,15 @@ nS=mc.nStates;
 % error('Method not yet implemented');
 %continue code from here, and erase the error message........
 for i = 1 : T
-%     get disrtibution probability
+    
     if i == 1
         cur_pD = DiscreteD(mc.InitialProb);
     else
         cur_pD = DiscreteD(mc.TransitionProb(S(i - 1), :));
     end
-%     get state
+    
     cur_S = rand(cur_pD, 1);
-%     if terminal, break
     if finiteDuration(mc) && cur_S == nS + 1
-%         delete the terminal state
         S = S(1 : i - 1);
         break;
     end

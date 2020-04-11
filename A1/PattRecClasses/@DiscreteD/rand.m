@@ -10,7 +10,7 @@ function R=rand(pD,nData)
 %   (size(R)= [1, nData]
 %
 %----------------------------------------------------
-%Code Authors:
+%Code Authors: Lingxiao Wang
 %----------------------------------------------------
 
 if numel(pD)>1
@@ -18,5 +18,9 @@ if numel(pD)>1
 end;
 
 %*** Insert your own code here and remove the following error message 
-
-error('Not yet implemented');
+R = zeros(1, nData);
+sample = rand(1, nData);
+cum_prob = cumsum(pD.ProbMass);
+for i = 1 : nData
+    R(i) = find(sample(i) < cum_prob, 1);
+end

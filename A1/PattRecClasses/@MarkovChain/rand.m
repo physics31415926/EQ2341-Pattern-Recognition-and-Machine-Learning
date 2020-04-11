@@ -24,7 +24,7 @@ function S=rand(mc,T)
 S=zeros(1,T);%space for resulting row vector
 nS=mc.nStates;
 
-error('Method not yet implemented');
+% error('Method not yet implemented');
 %continue code from here, and erase the error message........
 
 

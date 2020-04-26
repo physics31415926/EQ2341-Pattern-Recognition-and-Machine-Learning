@@ -1,0 +1,13 @@
+[x1,f1] = audioread('Sounds/female.wav');
+[x2,f2] = audioread('Sounds/music.wav');
+
+% female spectra and cepstra
+subplot(1,2,1)
+[spec1,f1,t1] = GetSpeechFeatures(x1,f1,0.03);
+imagesc(t1,f1,10*log10(spec1));
+h = colorbar;
+ylabel(h, 'Power density/dB');
+axis xy;
+xlabel('Time/s');
+ylabel('Frequency/Hz');
+subplot(1,2,2)

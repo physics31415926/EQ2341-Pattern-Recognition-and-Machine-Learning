@@ -18,31 +18,30 @@ function S=rand(mc,T)
 %   length(S) <= T
 %
 %---------------------------------------------
-%Code Authors: Lingxiao Wang
+%Code Authors:
 %---------------------------------------------
 
-S=zeros(1,T);%space for resulting row vector
 nS=mc.nStates;
+pd = DiscreteD(mc.InitialProb);
+state = rand(pd,1);
+S = state;
 
-% error('Method not yet implemented');
-%continue code from here, and erase the error message........
-for i = 1 : T
-%     get disrtibution probability
-    if i == 1
-        cur_pD = DiscreteD(mc.InitialProb);
-    else
-        cur_pD = DiscreteD(mc.TransitionProb(S(i - 1), :));
+if finiteDuration(mc)
+    for t = 2:T
+        pd = DiscreteD(mc.TransitionProb(state,:));
+        state = rand(pd,1);
+        if state > nS
+            break;
+        end
+        S = [S state];
     end
-%     get state
-    cur_S = rand(cur_pD, 1);
-%     if terminal, break
-    if finiteDuration(mc) && cur_S == nS + 1
-%         delete the terminal state
-        S = S(1 : i - 1);
-        break;
-    end
-    S(i) = cur_S;
+else
+    for t = 2:T
+        pd = DiscreteD(mc.TransitionProb(state,:));
+        state = rand(pd,1);
+        S = [S state];
+    end    
 end
-
+end
 
 

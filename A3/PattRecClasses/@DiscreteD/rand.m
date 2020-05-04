@@ -10,17 +10,15 @@ function R=rand(pD,nData)
 %   (size(R)= [1, nData]
 %
 %----------------------------------------------------
-%Code Authors: Lingxiao Wang
+%Code Authors:
 %----------------------------------------------------
 
 if numel(pD)>1
     error('Method works only for a single DiscreteD object');
-end;
+end
 
 %*** Insert your own code here and remove the following error message 
-R = zeros(1, nData);
-sample = rand(1, nData);
-cum_prob = cumsum(pD.ProbMass);
-for i = 1 : nData
-    R(i) = find(sample(i) < cum_prob, 1);
+
+    pd = makedist('Multinomial','probabilities',pD.ProbMass);
+    R = random(pd,nData,1);
 end

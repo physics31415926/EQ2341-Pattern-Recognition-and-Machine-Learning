@@ -27,14 +27,23 @@
 %----------------------------------------------------
 
 function logP=logprob(hmm,x)
-hmmSize=size(hmm);%size of hmm array
-T=size(x,2);%number of vector samples in observed sequence
-logP=zeros(hmmSize);%space for result
-for i=1:numel(hmm)%for all HMM objects
-    %Note: array elements can always be accessed as hmm(i),
-    %regardless of hmmSize, even with multi-dimensional array.
-    %
-    %logP(i)= result for hmm(i)
-    %continue coding from here, and delete the error message.
-    error('Not yet implemented');
-end;
+    hmmSize=size(hmm);%size of hmm array
+    T=size(x,2);%number of vector samples in observed sequence
+    logP=zeros(hmmSize);%space for result
+    
+    for i=1:numel(hmm)%for all HMM objects
+        %Note: array elements can always be accessed as hmm(i),
+        %regardless of hmmSize, even with multi-dimensional array.
+        %
+        %logP(i)= result for hmm(i)
+        %calculate pX
+        pX = zeros(numel(hmm(i).OutputDistr),T);
+        
+        for j = 1:numel(hmm(i).OutputDistr)
+            pX(j,:) = exp(hmm(i).OutputDistr(j).logprob(x(i,:)));
+        end
+
+        [alfaHat, c]=forward(hmm(i).StateGen,pX);
+        logP(i) = sum(log(c));
+    end
+end

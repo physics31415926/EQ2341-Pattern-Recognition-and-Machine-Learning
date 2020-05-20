@@ -9,5 +9,4 @@ X = [-0.2,2.6,1.3];
 [alphaHat,c]=forward(mc,pX);
 
 B = [b1;b2];
-hmm = HMM(mc,B);
-logP=logprob(hmm,X);
+betaHat=backward(mc,pX,c)
